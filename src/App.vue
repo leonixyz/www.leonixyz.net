@@ -33,6 +33,31 @@
     color: #592637;
   }
 
+  pre {
+    font-family: monospace;
+    background-color: #eee;
+    padding: 0.5rem;
+  }
+
+  code {
+    font-family: monospace;
+    background-color: #eee;
+    padding: 0.2rem;
+  }
+
+  blockquote {
+    border-left: 4px solid #ddd;
+    margin-left: 0;
+    padding-left: 1rem;
+  }
+
+  hr {
+    color: #ddd;
+    border: 0;
+    height: 2px;
+    background-color: #ddd;
+  }
+
   #site-header {
     position: fixed;
     top: 0;
