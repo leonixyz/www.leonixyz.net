@@ -26,7 +26,7 @@
             <span class="sr-only">languages I speak:</span>
             <span v-for="language in languages" :key="language.locale" class="language">
               <img class="flag" :src="`img/flags/${language.locale}.svg`" :alt="language.name">
-              good
+              {{ language.level }}
             </span>
         </p>
     </div>
