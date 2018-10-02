@@ -30,9 +30,9 @@ export default {
             response.body.forEach(element => {
               const rawName = element.name.replace(/.md$/g, '')
               const date = rawName.split('_')[0]
-              const title = rawName.split('_')[1]
+              const title = rawName.split('_')[1].replace('-', ' ')
               this.posts.push({
-                title: title,
+                title: this.toTitleCase(title),
                 date: new Date(date)
               })
             })
@@ -40,6 +40,14 @@ export default {
         }, response => {
           console.error('you fucked up everything as usual')
         })
+    },
+    toTitleCase: function (str) {
+      return str.replace(
+        /\w\S*/g,
+        function (txt) {
+          return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase()
+        }
+      )
     }
   }
 }
