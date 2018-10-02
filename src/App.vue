@@ -22,7 +22,7 @@
     box-sizing: border-box;
     font-family: 'Raleway', sans-serif;
     letter-spacing: .5px;
-    line-height: 25px; 
+    line-height: 25px;
     padding: 10px;
     min-width: 280px;
     max-width: 700px;
@@ -81,12 +81,12 @@
 </style>
 
 <script>
-  export default {
-    name: 'App',
-    methods: {
-      routeIs(path) {
-        return this.$route.fullPath === path;
-      }
+export default {
+  name: 'App',
+  methods: {
+    routeIs (path) {
+      return this.$route.fullPath === path
     }
   }
+}
 </script>
