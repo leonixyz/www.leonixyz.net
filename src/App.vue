@@ -12,7 +12,7 @@
         </nav>
     </header>
     <footer id="site-footer">
-        &lt;/html&gt;<br>
+        <a href="https://github.com/leonixyz/www.leonixyz.net">&lt;/html&gt;</a>
     </footer>
   </body>
 </template>
@@ -62,7 +62,11 @@
     margin-top: 6rem;
     text-align: right;
     font-family: monospace;
+  }
+
+  #site-footer a {
     color: #ddd;
+    text-decoration: none;
   }
 
   @media all and (max-width: 700px) {
