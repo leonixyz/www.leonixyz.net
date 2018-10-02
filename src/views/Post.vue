@@ -41,7 +41,6 @@ export default {
 
       this.$http.get(downloadUrl)
         .then(response => {
-          console.log(`I was called with downloadUrl=${downloadUrl}`)
           this.data = markdown.toHTML(response.body)
         }, response => {
           console.error('you fucked up everything as usual')
