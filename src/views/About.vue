@@ -3,14 +3,19 @@
     <div id="showcase">
         <img src="img/me.png" alt="A picture of myself" id="my-picture">
         <p id="contacts">
-            <span v-html="mailLink"></span>
-            &nbsp;
+            <!-- <span v-html="mailLink"></span> -->
+            <span>
+              <a :href="'mailto:' + encodeMailAddress(mailAddress)">
+                <span class="fa fa-at"></span>
+                <span class="sr-only">Email</span>
+              </a>
+            </span>
             <span v-for="contact in contacts" :key="contact.url">
+              &nbsp;
               <a :href="contact.url" hreflang="en">
                 <span :class="contact.icon"></span>
                 <span class="sr-only">{{ contact.name }}</span>
               </a>
-              &nbsp;
             </span>
         </p>
         <h1>{{ myName }}</h1>
@@ -117,7 +122,7 @@ export default {
     return {
       myName: 'Giulio Roman',
       aboutMe: 'Web development enthusiast,<br>Free Software advocate,<br>GNU/Linux lover.',
-      mailLink: '<a href="mailto:&#109;&#101;&#64;&#108;&#101;&#111;&#110;&#105;&#120;&#121;&#122;&#46;&#110;&#101;&#116;"><span class="fa fa-at"></span><span class="sr-only">Email</span></a>',
+      mailAddress: 'leonixyz@gmail.com',
       contacts: [
         {
           name: 'Github',
@@ -202,6 +207,13 @@ export default {
           url: 'https://www.silverstripe.org/'
         }
       ]
+    }
+  },
+  methods: {
+    encodeMailAddress: (address) => {
+      return address.replace(/[\u00A0-\u9999<>&]/gim, function (i) {
+        return '&#' + i.charCodeAt(0) + ';'
+      })
     }
   }
 }
