@@ -121,6 +121,6 @@ export default {
   name: 'app',
   data: () => {
     return conf.default
-  },
+  }
 }
 </script>
