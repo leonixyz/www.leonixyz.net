@@ -1,31 +1,88 @@
 <template>
-  <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
+  <body>
+    <p class="sr-only">
+        <a href="#site-header">Main navigation</a>
+    </p>
     <router-view/>
-  </div>
+    <header id="site-header">
+        <nav id="site-nav">
+            <router-link to="/" v-bind:class="{ active: routeIs('/')}">blog</router-link>
+            |
+            <router-link to="/about" v-bind:class="{ active: routeIs('/about')}">me</router-link>
+        </nav>
+    </header>
+    <footer id="site-footer">
+        &lt;/html&gt;<br>
+    </footer>
+  </body>
 </template>
 
 <style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
-#nav {
-  padding: 30px;
-}
+  body {
+    box-sizing: border-box;
+    font-family: 'Raleway', sans-serif;
+    letter-spacing: .5px;
+    line-height: 25px; 
+    padding: 10px;
+    min-width: 280px;
+    max-width: 700px;
+    margin: 6rem auto 0 auto;
+  }
 
-#nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
+  a, a:visited, a:hover, a:active {
+    color: #592637;
+  }
 
-#nav a.router-link-exact-active {
-  color: #42b983;
-}
+  #site-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    min-width: 280px;
+    height: 3rem;
+    box-shadow: #888 0px 3px 5px;
+    background-color: #fff;
+  }
+
+  #site-nav {
+    padding: 0.8rem;
+    font-size: 1.2rem;
+  }
+
+  #site-nav a {
+    color: #000;
+    text-decoration: none;
+  }
+
+  #site-nav a.active {
+    text-decoration: underline;
+  }
+
+  #site-footer {
+    margin-top: 6rem;
+    text-align: right;
+    font-family: monospace;
+    color: #ddd;
+  }
+
+  @media all and (max-width: 700px) {
+    body {
+      margin-top: 3rem;
+    }
+
+    #site-footer {
+      margin-top: 3rem;
+    }
+  }
 </style>
+
+<script>
+  export default {
+    name: 'App',
+    methods: {
+      routeIs(path) {
+        return this.$route.fullPath === path;
+      }
+    }
+  }
+</script>
