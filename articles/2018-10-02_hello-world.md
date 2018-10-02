@@ -10,7 +10,7 @@
 
 ###### h6
 
-*em* **bold** **_em+bold_** ~~strike~~ [link](.) `code`
+*em* **bold** **_em+bold_** [link](.) `code`
 
 ![alt](https://avatars3.githubusercontent.com/u/4563795)
 
@@ -25,6 +25,6 @@
 
 > quote
 
-```
+~~~
 code block
-```
+~~~
