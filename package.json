@@ -1,5 +1,6 @@
 {
   "name": "www.leonixyz.net",
+  "author": "leonixyz@gmail.com",
   "version": "0.1.0",
   "private": true,
   "scripts": {

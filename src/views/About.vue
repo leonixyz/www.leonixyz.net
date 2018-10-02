@@ -4,7 +4,7 @@
         <img src="img/me.png" alt="A picture of myself" id="my-picture">
         <p id="contacts">
             <span>
-              <a :href="'mailto:' + encodeMailAddress(mailAddress)">
+              <a :href="'mailto:' + mailAddress">
                 <span class="fa fa-at"></span>
                 <span class="sr-only">Email</span>
               </a>
@@ -115,105 +115,12 @@
 </style>
 
 <script>
+import * as conf from '../../siteconfig.json'
+
 export default {
   name: 'app',
   data: () => {
-    return {
-      myName: 'Giulio Roman',
-      aboutMe: 'Web development enthusiast,<br>Free Software advocate,<br>GNU/Linux lover.',
-      mailAddress: 'leonixyz@gmail.com',
-      contacts: [
-        {
-          name: 'Github',
-          url: 'https://github.com/leonixyz',
-          icon: 'fab fa-github'
-        },
-        {
-          name: 'LinkedIn',
-          url: 'https://www.linkedin.com/in/giulio-roman-857557144/',
-          icon: 'fab fa-linkedin'
-        }
-      ],
-      languages: [
-        {
-          name: 'Italian',
-          locale: 'it',
-          level: 'native'
-        },
-        {
-          name: 'English',
-          locale: 'gb',
-          level: 'excellent'
-        },
-        {
-          name: 'German',
-          locale: 'de',
-          level: 'good'
-        },
-        {
-          name: 'Spanish',
-          locale: 'es',
-          level: 'good'
-        }
-      ],
-      skills: [
-        {
-          name: 'Angular',
-          url: 'https://angular.io/'
-        },
-        {
-          name: 'AngularJs',
-          url: 'https://angularjs.org/'
-        },
-        {
-          name: 'AWS',
-          url: 'https://aws.amazon.com/'
-        },
-        {
-          name: 'ASP.NET',
-          url: 'https://www.asp.net/'
-        },
-        {
-          name: 'CSS',
-          url: 'https://www.w3.org/Style/CSS/'
-        },
-        {
-          name: 'Docker',
-          url: 'https://www.docker.com/'
-        },
-        {
-          name: 'Javascript',
-          url: 'https://developer.mozilla.org/en-US/docs/Web/JavaScript'
-        },
-        {
-          name: 'Kubernetes',
-          url: 'https://kubernetes.io/'
-        },
-        {
-          name: 'NodeJs',
-          url: 'https://nodejs.org/'
-        },
-        {
-          name: 'PHP',
-          url: 'https://secure.php.net/'
-        },
-        {
-          name: 'WordPress',
-          url: 'https://wordpress.org/'
-        },
-        {
-          name: 'Silverstripe',
-          url: 'https://www.silverstripe.org/'
-        }
-      ]
-    }
+    return conf.default
   },
-  methods: {
-    encodeMailAddress: (address) => {
-      return address.replace(/[\u00A0-\u9999<>&]/gim, function (i) {
-        return '&#' + i.charCodeAt(0) + ';'
-      })
-    }
-  }
 }
 </script>
