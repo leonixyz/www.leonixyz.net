@@ -3,7 +3,6 @@
     <div id="showcase">
         <img src="img/me.png" alt="A picture of myself" id="my-picture">
         <p id="contacts">
-            <!-- <span v-html="mailLink"></span> -->
             <span>
               <a :href="'mailto:' + encodeMailAddress(mailAddress)">
                 <span class="fa fa-at"></span>
@@ -50,7 +49,7 @@
     margin-left: 1rem;
   }
 
-    #showcase {
+  #showcase {
     text-align: right;
   }
 
