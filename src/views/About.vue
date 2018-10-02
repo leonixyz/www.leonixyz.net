@@ -3,11 +3,8 @@
     <div id="showcase">
         <img src="img/me.png" alt="A picture of myself" id="my-picture">
         <p id="contacts">
-            <!-- <script type="text/javascript">
-              document.write("<a href='mailto:&#109;&#101;&#64;&#108;&#101;&#111;&#110;&#105;&#120;&#121;&#122;&#46;&#110;&#101;&#116;'><span class='fa fa-at'></span><span class='sr-only'>Email</span></a>");
-            </script>
+            <span v-html="mailLink"></span>
             &nbsp;
-            -->
             <a hreflang="en" href="https://github.com/leonixyz"><span class="fab fa-github"></span><span class="sr-only">Github</span></a>
             &nbsp;
             <a hreflang="en" href="https://www.linkedin.com/in/giulio-roman-857557144/"><span class="fab fa-linkedin"></span><span class="sr-only">Linkedin</span></a>
@@ -48,7 +45,6 @@
     </div>
   </main>
 </template>
-
 
 <style>
   #my-picture {
@@ -112,7 +108,7 @@
       float: none;
       margin: 1rem;
     }
-    
+
     #showcase {
         text-align: center;
     }
@@ -120,5 +116,16 @@
     .hashtag {
         width: 45%;
     }
-  }  
+  }
 </style>
+
+<script>
+export default {
+  name: 'app',
+  data: () => {
+    return {
+      mailLink: "<a href='mailto:&#109;&#101;&#64;&#108;&#101;&#111;&#110;&#105;&#120;&#121;&#122;&#46;&#110;&#101;&#116;'><span class='fa fa-at'></span><span class='sr-only'>Email</span></a>"
+    }
+  }
+}
+</script>
