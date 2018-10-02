@@ -32,10 +32,12 @@ export default {
               const date = rawName.split('_')[0]
               const slug = rawName.split('_')[1]
               const title = slug.replace('-', ' ')
+              const downloadUrl = element.download_url
               this.posts.push({
                 title: this.toTitleCase(title),
                 date: new Date(date),
-                slug: slug
+                slug: slug,
+                downloadUrl: downloadUrl
               })
             })
           }
