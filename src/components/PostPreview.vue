@@ -9,7 +9,7 @@
 
 <script>
 export default {
-  name: 'Post',
+  name: 'PostPreview',
   props: {
     title: String,
     date: Date,

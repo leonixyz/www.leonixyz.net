@@ -1,12 +1,12 @@
 <template>
   <main>
-    <post v-for="post in posts" :key="post.title" :title="post.title" :date="post.date" :slug="post.slug"/>
+    <post-preview v-for="post in posts" :key="post.title" :title="post.title" :date="post.date" :slug="post.slug"/>
   </main>
 </template>
 
 <script>
 // @ is an alias to /src
-import Post from '@/components/Post.vue'
+import PostPreview from '@/components/PostPreview.vue'
 import * as conf from '../../siteconfig.json'
 
 export default {
@@ -17,7 +17,7 @@ export default {
     }
   },
   components: {
-    Post
+    PostPreview
   },
   created: function () {
     this.getPosts()
