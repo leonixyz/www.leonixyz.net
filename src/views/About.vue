@@ -1,7 +1,7 @@
 <template>
   <main>
     <div id="showcase">
-        <img src="img/me.png" alt="A picture of myself" id="my-picture">
+        <img :src="pictureUrl" alt="A picture of myself" id="my-picture">
         <p id="contacts">
             <span>
               <a :href="'mailto:' + mailAddress">
