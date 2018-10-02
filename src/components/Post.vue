@@ -1,8 +1,10 @@
 <template>
-  <div class="post">
-    <em>{{ printDate(date) }}</em>
-    <h2>{{ title }}</h2>
-  </div>
+  <router-link :to="'/blog/' + slug" class="undercorated">
+    <div class="post">
+      <em>{{ printDate(date) }}</em>
+      <h2>{{ title }}</h2>
+    </div>
+  </router-link>
 </template>
 
 <script>
@@ -10,7 +12,8 @@ export default {
   name: 'Post',
   props: {
     title: String,
-    date: Date
+    date: Date,
+    slug: String
   },
   methods: {
     printDate: function (date) {
@@ -22,3 +25,15 @@ export default {
   }
 }
 </script>
+
+<style>
+  .post {
+    padding: 1rem;
+    background-color: #eee;
+    color: #666;
+  }
+
+  .undercorated {
+    text-decoration: none;
+  }
+</style>

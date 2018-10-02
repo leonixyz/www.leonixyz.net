@@ -1,6 +1,6 @@
 <template>
   <main>
-    <post v-for="post in posts" :key="post.title" :title="post.title" :date="post.date"/>
+    <post v-for="post in posts" :key="post.title" :title="post.title" :date="post.date" :slug="post.slug"/>
   </main>
 </template>
 
@@ -30,10 +30,12 @@ export default {
             response.body.forEach(element => {
               const rawName = element.name.replace(/.md$/g, '')
               const date = rawName.split('_')[0]
-              const title = rawName.split('_')[1].replace('-', ' ')
+              const slug = rawName.split('_')[1]
+              const title = slug.replace('-', ' ')
               this.posts.push({
                 title: this.toTitleCase(title),
-                date: new Date(date)
+                date: new Date(date),
+                slug: slug
               })
             })
           }
