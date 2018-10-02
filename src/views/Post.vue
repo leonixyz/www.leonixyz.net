@@ -5,7 +5,7 @@
 
 <script>
 import * as conf from '../../siteconfig.json'
-import { markdown } from 'markdown'
+import * as marked from 'marked'
 
 export default {
   name: 'Post',
@@ -41,7 +41,7 @@ export default {
 
       this.$http.get(downloadUrl)
         .then(response => {
-          this.data = markdown.toHTML(response.body)
+          this.data = marked(response.body)
         }, response => {
           console.error('you fucked up everything as usual')
         })
