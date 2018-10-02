@@ -84,7 +84,7 @@
 export default {
   name: 'App',
   methods: {
-    routeIs (path) {
+    routeIs: function (path) {
       return this.$route.fullPath === path
     }
   }
