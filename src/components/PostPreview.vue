@@ -31,6 +31,7 @@ export default {
     padding: 1rem;
     background-color: #eee;
     color: #666;
+    margin-bottom: 1rem;
   }
 
   .undercorated {

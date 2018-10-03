@@ -31,7 +31,7 @@ export default {
               const rawName = element.name.replace(/.md$/g, '')
               const date = rawName.split('_')[0]
               const slug = rawName.split('_')[1]
-              const title = slug.replace('-', ' ')
+              const title = slug.replace(/-/g, ' ')
               const downloadUrl = element.download_url
               this.posts.push({
                 title: this.toTitleCase(title),
@@ -39,6 +39,7 @@ export default {
                 slug: slug,
                 downloadUrl: downloadUrl
               })
+              this.posts.sort((a, b) => b.date.getTime() - a.date.getTime())
             })
           }
         }, response => {

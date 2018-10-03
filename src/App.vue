@@ -37,6 +37,7 @@
     font-family: monospace;
     background-color: #eee;
     padding: 0.5rem;
+    overflow-x: scroll;
   }
 
   code {
@@ -56,6 +57,14 @@
     border: 0;
     height: 2px;
     background-color: #ddd;
+  }
+
+  img {
+    max-width: 100%;
+  }
+
+  h1 {
+    line-height: 2rem;
   }
 
   #site-header {
