@@ -67,6 +67,10 @@
     line-height: 2rem;
   }
 
+  h1, h2, h3, h4, h5, h6 {
+    color: #592637;
+  }
+
   #site-header {
     position: fixed;
     top: 0;
@@ -81,15 +85,17 @@
   #site-nav {
     padding: 0.8rem;
     font-size: 1.2rem;
+    background-color: #592637;
   }
 
   #site-nav a {
-    color: #000;
+    padding: 0.3rem;
+    color: #fff;
     text-decoration: none;
   }
 
   #site-nav a.active {
-    text-decoration: underline;
+    background-color:#7b394f;
   }
 
   #site-footer {
@@ -106,6 +112,30 @@
   @media all and (max-width: 700px) {
     body {
       margin-top: 3rem;
+    }
+
+    h1 {
+      font-size: 1.5rem;
+    }
+
+    h2 {
+      font-size: 1.3rem;
+    }
+
+    h3 {
+      font-size: 1.1rem;
+    }
+
+    h4 {
+      font-size: 0.9rem;
+    }
+
+    h5 {
+      font-size: 0.8rem;
+    }
+
+    h6 {
+      font-size: 0.7rem;
     }
 
     #site-footer {

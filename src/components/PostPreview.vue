@@ -2,7 +2,7 @@
   <router-link :to="'/blog/' + slug" class="undercorated">
     <div class="post">
       <em>{{ printDate(date) }}</em>
-      <h2>{{ title }}</h2>
+      <h2 class="post-preview-title">{{ title }}</h2>
     </div>
   </router-link>
 </template>
@@ -32,9 +32,14 @@ export default {
     background-color: #eee;
     color: #666;
     margin-bottom: 1rem;
+    box-shadow: #888 0px 3px 5px;
   }
 
   .undercorated {
     text-decoration: none;
+  }
+
+  .post-preview-title {
+    color: #666;
   }
 </style>
