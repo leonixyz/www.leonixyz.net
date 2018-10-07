@@ -1,5 +1,20 @@
 <template>
-  <main v-html="post.content">
+  <main v-if="post">
+    <!-- Post content -->
+    <div v-html="post.content">
+    </div>
+    <hr>
+    <!-- Comments -->
+    <div>
+      <h2>Comments</h2>
+      <comment v-for="comment in post.comments.items" :key='comment.id' :comment="comment"></comment>
+      <a :href="post.comments.url + '#all_commit_comments'" class="undercorated">
+        <div class="comment">
+            <span class="fa fa-comment"></span>
+            Post a comment
+        </div>
+      </a>
+    </div>
   </main>
 </template>
 
@@ -7,6 +22,7 @@
 import * as marked from 'marked'
 import * as axios from 'axios'
 import GithubApi from '@/github-api.js'
+import Comment from '@/components/Comment.vue'
 
 export default {
   name: 'Post',
@@ -14,10 +30,12 @@ export default {
   data: function () {
     return {
       api: new GithubApi(),
-      post: {
-        content: 'loading...'
-      }
+      post: null
     }
+  },
+
+  components: {
+    Comment
   },
 
   /**
@@ -25,8 +43,11 @@ export default {
    */
   created: async function () {
     try {
-      this.post.object = await this.getPost()
-      this.post.content = await this.getPostHtml()
+      const post = {}
+      post.object = await this.getPost()
+      post.content = await this.getPostHtml(post.object)
+      post.comments = await this.api.getComments(post.object)
+      this.post = post
     } catch (e) {
       if (e.bodyText) {
         this.post.content = `An error occurred: ${JSON.parse(e.bodyText).message}`
@@ -53,10 +74,10 @@ export default {
     /**
      * Get the content of the current post converted to HTML
      */
-    getPostHtml: async function () {
-      if (!this.post.object.downloadUrl) throw new Error('Cannot load post, no <code>downloadUrl</code> available')
+    getPostHtml: async function (post) {
+      if (!post.downloadUrl) throw new Error('Cannot load post, no <code>downloadUrl</code> available')
 
-      const markdown = (await axios.get(this.post.object.downloadUrl)).data
+      const markdown = (await axios.get(post.downloadUrl)).data
       const html = marked(markdown)
       return html
     }
