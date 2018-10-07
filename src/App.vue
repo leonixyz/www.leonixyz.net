@@ -6,9 +6,9 @@
     <router-view/>
     <header id="site-header">
         <nav id="site-nav">
-            <router-link to="/" v-bind:class="{ active: routeIs('/')}">blog</router-link>
+            <router-link to="/" v-bind:class="{ active: routeIs('/') }">blog</router-link>
             |
-            <router-link to="/about" v-bind:class="{ active: routeIs('/about')}">me</router-link>
+            <router-link to="/about" v-bind:class="{ active: routeIs('/about')}">about</router-link>
         </nav>
     </header>
     <footer id="site-footer">
