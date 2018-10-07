@@ -138,7 +138,12 @@ export default class GithubApi {
     const newObject = {
       expiry: expiry,
       url: lastCommit.html_url,
-      items: items
+      items: items,
+      author: {
+        avatar: lastCommit.author.avatar_url,
+        name: lastCommit.author.login,
+        url: lastCommit.author.html_url
+      }
     }
 
     window.localStorage.setItem(`comments-${post.slug}`, JSON.stringify(newObject))

@@ -1,5 +1,13 @@
 <template>
   <main v-if="post">
+    <!-- Post metadata -->
+    <div>
+      <a :href="post.comments.author.url">
+        <img :src="post.comments.author.avatar" class="avatar">
+        {{ post.comments.author.name }}
+      </a><br>
+      <em>{{ post.object.date | prettyDate }}</em>      
+    </div>
     <!-- Post content -->
     <div v-html="post.content">
     </div>
