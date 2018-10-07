@@ -115,10 +115,11 @@
 </style>
 
 <script>
-import * as conf from '../../siteconfig.json'
+import * as conf from '@/../siteconfig.json'
 
 export default {
   name: 'app',
+
   data: () => {
     return conf.default
   }

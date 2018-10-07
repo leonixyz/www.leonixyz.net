@@ -147,7 +147,12 @@
 <script>
 export default {
   name: 'App',
+
   methods: {
+    /**
+     * Return true if the current route is equal to supplied path
+     * @param {string} path
+     */
     routeIs: function (path) {
       return this.$route.fullPath === path
     }

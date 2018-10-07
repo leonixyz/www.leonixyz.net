@@ -1,50 +1,64 @@
 <template>
-  <main v-html="data">
+  <main v-html="post.content">
   </main>
 </template>
 
 <script>
-import * as conf from '../../siteconfig.json'
 import * as marked from 'marked'
+import * as axios from 'axios'
+import GithubApi from '@/github-api.js'
 
 export default {
   name: 'Post',
+
   data: function () {
     return {
-      posts: [],
-      data: ''
+      api: new GithubApi(),
+      post: {
+        content: 'loading...'
+      }
     }
   },
-  created: function () {
-    this.findPost()
-  },
-  methods: {
-    findPost: function () {
-      this.$http.get(`https://api.github.com/repos/${conf.repo.owner}/${conf.repo.name}/contents/articles`)
-        .then(response => {
-          if (response.body) {
-            response.body.forEach(element => {
-              const rawName = element.name.replace(/.md$/g, '')
-              const slug = rawName.split('_')[1]
-              if (slug === this.$route.params['slug']) {
-                this.fetchData(element.download_url)
-              }
-            })
-          }
-        }, response => {
-          console.error('you fucked up everything as usual')
-        })
-        .then(() => this.fetchData())
-    },
-    fetchData: function (downloadUrl) {
-      if (!downloadUrl) return
 
-      this.$http.get(downloadUrl)
-        .then(response => {
-          this.data = marked(response.body)
-        }, response => {
-          console.error('you fucked up everything as usual')
-        })
+  /**
+   * Load the current post data
+   */
+  created: async function () {
+    try {
+      this.post.object = await this.getPost()
+      this.post.content = await this.getPostHtml()
+    } catch (e) {
+      if (e.bodyText) {
+        this.post.content = `An error occurred: ${JSON.parse(e.bodyText).message}`
+      } else {
+        this.post.content = e.toString()
+      }
+    }
+  },
+
+  methods: {
+    /**
+     * Get the metadata of the current post
+     */
+    getPost: async function () {
+      // get list of all posts
+      const posts = await this.api.getPosts()
+
+      // return the post whose name matches the current route
+      if (posts.items) {
+        return posts.items.find(post => post.slug === this.$route.params['slug'])
+      }
+    },
+
+    /**
+     * Get the content of the current post converted to HTML
+     */
+    getPostHtml: async function () {
+      if (!this.post.object.downloadUrl) throw new Error('Cannot load post, no <code>downloadUrl</code> available')
+
+      const markdown = (await axios.get(this.post.object.downloadUrl)).data
+      const html = marked(markdown)
+      return html
     }
   }
 }
