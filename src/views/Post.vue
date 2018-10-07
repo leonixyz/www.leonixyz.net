@@ -5,7 +5,7 @@
     </div>
     <hr>
     <!-- Comments -->
-    <div>
+    <div v-if="post.comments">
       <h2>Comments</h2>
       <comment v-for="comment in post.comments.items" :key='comment.id' :comment="comment"></comment>
       <a :href="post.comments.url + '#all_commit_comments'" class="undercorated">
@@ -15,6 +15,9 @@
         </div>
       </a>
     </div>
+  </main>
+  <main v-else>
+    <span class="spinner"></span>
   </main>
 </template>
 
@@ -50,9 +53,13 @@ export default {
       this.post = post
     } catch (e) {
       if (e.bodyText) {
-        this.post.content = `An error occurred: ${JSON.parse(e.bodyText).message}`
+        this.post = {
+          content: `An error occurred: ${JSON.parse(e.bodyText).message}`
+        }
       } else {
-        this.post.content = e.toString()
+        this.post = {
+          content: e.toString()
+        }
       }
     }
   },

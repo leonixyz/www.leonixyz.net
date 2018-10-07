@@ -1,7 +1,10 @@
 <template>
-  <main>
-    <span v-if="!posts || !posts.length">loading...</span>
-    <post-preview v-for="post in posts" :key="post.title" :title="post.title" :date="post.date" :slug="post.slug"/>
+  <main v-if="posts">
+    <span v-if="posts.length === 0">There aren't currently any posts to show.</span>
+    <post-preview v-for="post in posts.items" :key="post.title" :title="post.title" :date="post.date" :slug="post.slug"/>
+  </main>
+  <main v-else>
+    <span class="spinner"></span>
   </main>
 </template>
 
@@ -14,7 +17,7 @@ export default {
 
   data: function () {
     return {
-      posts: []
+      posts: null
     }
   },
 
@@ -27,8 +30,7 @@ export default {
    */
   created: async function () {
     const api = new GithubApi()
-    const posts = await api.getPosts()
-    this.posts = this.posts.concat(posts.items)
+    this.posts = await api.getPosts()
   }
 }
 </script>
