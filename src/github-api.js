@@ -125,7 +125,7 @@ export default class GithubApi {
       items.push({
         id: comment.id,
         date: comment.created_at,
-        body: marked(comment.body),
+        body: marked(comment.body, { sanitize: true }),
         author: {
           avatar: comment.user.avatar_url,
           name: comment.user.login,
