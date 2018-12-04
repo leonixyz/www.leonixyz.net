@@ -30,6 +30,7 @@ export default {
    */
   created: async function () {
     const api = new GithubApi()
+    await api.init()
     this.posts = await api.getPosts()
   }
 }

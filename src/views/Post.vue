@@ -2,11 +2,11 @@
   <main v-if="post">
     <!-- Post metadata -->
     <div>
-      <a :href="post.comments.author.url">
+      <a :href="post.comments.author.url" v-if="post.comments && post.comments.author">
         <img :src="post.comments.author.avatar" class="avatar">
         {{ post.comments.author.name }}
       </a><br>
-      <em>{{ post.object.date | prettyDate }}</em>
+      <em v-if="post.object">{{ post.object.date | prettyDate }}</em>
     </div>
     <!-- Post content -->
     <div v-html="post.content">
@@ -54,6 +54,7 @@ export default {
    */
   created: async function () {
     try {
+      this.api.init()
       const post = {}
       post.object = await this.getPost()
       post.content = await this.getPostHtml(post.object)

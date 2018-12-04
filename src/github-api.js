@@ -4,8 +4,44 @@ import * as marked from 'marked'
 
 export default class GithubApi {
   /**
+   * Initializes the object by trying to fetch the API key. Needed because constructors cannot be async.
+   */
+  async init () {
+    await this.fetchAPIKey()
+  }
+
+  /**
+   * Tries to get the API key.
+   */
+  async fetchAPIKey () {
+    if (!window.localStorage.getItem('APIKey')) {
+      const key = await axios.get('https://www.leonixyz.net/api.php')
+      window.localStorage.setItem('APIKey', key.data.API_KEY)
+    }
+  }
+
+  /**
+   * Returns an object to be used as HttpParams for axios request methods.
+   * Embeds the access_token if there is one.
+   */
+  getHttpParams () {
+    const key = window.localStorage.getItem('APIKey')
+    if (key) {
+      return {
+        params: {
+          access_token: key
+        }
+      }
+    } else {
+      return {
+        params: {}
+      }
+    }
+  }
+
+  /**
    * Returns a list of posts, either from localStorage if the cached version is still
-   * valid, or by issuing an API call to Github
+   * valid, or by issuing an API call to Github.
    */
   async getPosts () {
     // try looking into the cache
@@ -34,7 +70,7 @@ export default class GithubApi {
   };
 
   /**
-   * Fetch posts from Github API and cache them in localStorage
+   * Fetch posts from Github API and cache them in localStorage.
    */
   async updatePostsCache () {
     // set a new expiry date
@@ -42,7 +78,7 @@ export default class GithubApi {
     expiry.setHours(expiry.getHours() + 1)
 
     // get API response
-    const response = await axios.get(`https://api.github.com/repos/${conf.repo.owner}/${conf.repo.name}/contents/articles`)
+    const response = await axios.get(`https://api.github.com/repos/${conf.repo.owner}/${conf.repo.name}/contents/articles`, this.getHttpParams())
 
     // process response
     const posts = []
@@ -73,7 +109,7 @@ export default class GithubApi {
 
   /**
    * Returns a list of comments for a post, either from localStorage if the cached
-   * version is still valid, or by issuing an API call to Github
+   * version is still valid, or by issuing an API call to Github.
    * @param {object} post
    */
   async getComments (post) {
@@ -103,7 +139,7 @@ export default class GithubApi {
   };
 
   /**
-   * Fetch comments from Github API and cache them in localStorage
+   * Fetch comments from Github API and cache them in localStorage.
    */
   async updateCommentsCache (post) {
     // set a new expiry date
@@ -116,12 +152,12 @@ export default class GithubApi {
 
     // fetch comments of current post
     if (lastCommit.comment_count !== 0) {
-      comments = (await axios.get(lastCommit.comments_url)).data
+      comments = await axios.get(lastCommit.comments_url, this.getHttpParams())
     }
 
     // process comments
     let items = []
-    comments.forEach(function (comment) {
+    comments.data.forEach(function (comment) {
       items.push({
         id: comment.id,
         date: comment.created_at,
@@ -150,24 +186,19 @@ export default class GithubApi {
   }
 
   /**
-   * Fetch the last commit for a given post
+   * Fetch the last commit for a given post.
    * @param {any} post
    */
   async fetchLastCommit (post) {
-    const commits = (await axios.get(
-      `https://api.github.com/repos/${conf.repo.owner}/${conf.repo.name}/commits`,
-      {
-        params: {
-          path: post.path
-        }
-      })
-    ).data
+    const httpParams = this.getHttpParams()
+    httpParams.params.path = post.path
+    const commits = await axios.get(`https://api.github.com/repos/${conf.repo.owner}/${conf.repo.name}/commits`, httpParams)
 
-    return commits[commits.length - 1]
+    return commits.data[commits.data.length - 1]
   }
 
   /**
-   * Convert a string to Title Case
+   * Convert a string to Title Case.
    * @param {string} rawTitle
    */
   toTitleCase (rawTitle) {
