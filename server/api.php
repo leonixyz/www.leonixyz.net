@@ -17,7 +17,8 @@ if (!$ip) {
 $allowed_hosts = [
     'google\.com',
     'googlebot\.com',
-    'duckduckgo\.com'
+    'duckduckgo\.com',
+    // '151\.62\.221\.97'
 ];
 $pattern = '/\.(' . implode($allowed_hosts, ')|(') . ').?$/';
 
@@ -35,7 +36,7 @@ if (!$host) {
 
 // if the host matched the list of allowed domains, return API key
 if (preg_match($pattern, $host)) {
-    die('{"API_KEY":'.API_KEY.'}');
+    die('{"API_KEY":"'.API_KEY.'"}');
 } else {
-    die('{"API_KEY":null}');
+    die('{"API_KEY":""}');
 }

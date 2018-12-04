@@ -16,7 +16,9 @@ export default class GithubApi {
   async fetchAPIKey () {
     if (!window.localStorage.getItem('APIKey')) {
       const key = await axios.get('https://www.leonixyz.net/api.php')
-      window.localStorage.setItem('APIKey', key.data.API_KEY)
+      if (key.data.API_KEY) {
+        window.localStorage.setItem('APIKey', key.data.API_KEY)
+      }
     }
   }
 
@@ -26,6 +28,7 @@ export default class GithubApi {
    */
   getHttpParams () {
     const key = window.localStorage.getItem('APIKey')
+    console.log(key)
     if (key) {
       return {
         params: {
