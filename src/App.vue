@@ -27,6 +27,10 @@
     min-width: 280px;
     max-width: 700px;
     margin: 6rem auto 0 auto;
+    -webkit-hyphens: auto;
+    -moz-hyphens: auto;
+    -ms-hyphens: auto;
+    hyphens: auto;
   }
 
   a, a:visited, a:hover, a:active {
