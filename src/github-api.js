@@ -28,7 +28,6 @@ export default class GithubApi {
    */
   getHttpParams () {
     const key = window.localStorage.getItem('APIKey')
-    console.log(key)
     if (key) {
       return {
         params: {
